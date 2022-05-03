@@ -79,9 +79,7 @@ def infotodict(seqinfo):
             get_latest_series(t1w, s)
         #DWI
         elif "ABCD_dMRI" in s.series_description:
-            if "ABCD_dMRI_DistortionMap_PA" in s.series_description:
-                continue
-            else:
+            if "ABCD_dMRI_DistortionMap_PA" not in s.series_description and "ABCD_dMRI_DistortionMap_AP" not in s.series_description:
                 get_latest_series(dwi, s)
         elif "dwi" in s.series_description:
             if "AP_epi" in s.series_description:
@@ -92,19 +90,18 @@ def infotodict(seqinfo):
                 get_latest_series(dwi, s)
         elif "DTI" in s.series_description:
             if "topup" in s.series_description:
-                get_lates_series(topup, s)
+                get_latest_series(topup, s)
             else:
                 get_latest_series(dwi, s)
-            get_latest_series(dwi, s)
         elif "MULTISHELL" in s.series_description:
             if "b2000" in s.series_description:
                 get_latest_series(dwi, s)
             elif "topup" in s.series_description:
-                get_lates_series(topup, s)
+                get_latest_series(topup, s)
         elif "TRACEW" in s.series_description:
             get_latest_series(dwi, s)
         #FMAPS
-        elif "BOmap" in s.series_description:
+        elif "B0map" in s.series_description:
             #if "Field_map" and "e1" in s.dcm_dir_name:
             #if "e1" in s.dcm_dir_name:
             if s.dcm_dir_name.endswith("e1_ph.nii.gz"):
@@ -115,6 +112,7 @@ def infotodict(seqinfo):
                 get_latest_series(b0_phase, s)
             elif s.dcm_dir_name.endswith("_e2.nii.gz"):
                 get_latest_series(b0_mag, s)
+            # Looks like there are some dcm_dir_names that end with ph.nii.gz but don't have an e1 or e2 in front of them. Do you want to skip these? 
             else:
                 continue
         #elif "fmap" in s.series_description:
@@ -134,9 +132,9 @@ def infotodict(seqinfo):
         #    get_latest_series(PA_epi, s)
         #elif "fmap-ABCD_acq-dMRIdistmap_dir-AP" in s.series_description:
         #    get_latest_series(AP_epi, s)
-        elif "DistoritionMap_AP" in s.series_description:
+        elif "dMRI_DistortionMap_AP" in s.series_description:
             get_latest_series(AP_epi, s)
-        elif "DistoritionMap_PA" in s.series_description:
+        elif "dMRI_DistortionMap_PA" in s.series_description:
             get_latest_series(PA_epi, s)
 
     return info
