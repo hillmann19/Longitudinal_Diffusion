@@ -120,9 +120,9 @@ def infotodict(seqinfo):
         #        get_latest_series(AP_epi, s)
         #    elif "dir-PA" in s.series_description:
         #        get_latest_series(PA_epi, s)
-        elif "dMRIdistmap_dir-AP" in protocol:
+        elif "dMRIdistmap_dir-AP" in s.protocol_name:
             get_latest_series(AP_epi, s)
-        elif "dMRIdistmap_dir-PA" in protocol:
+        elif "dMRIdistmap_dir-PA" in s.protocol_name:
             get_latest_series(PA_epi, s)
         #elif "fmap_acq-dMRIdistmap_dir-AP_epi" in protocol:
         #    get_latest_series(AP_epi, s)
